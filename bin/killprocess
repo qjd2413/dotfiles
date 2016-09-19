@@ -1,0 +1,15 @@
+
+if [ -n "$1" ]; then
+    proc=$(pgrep "^$1$")
+    if [ -n "$proc" ]; then
+        if [ -n "$2" ]; then
+            kill -s $2 $proc
+        else
+            kill $proc
+        fi
+    else
+        echo "no processes found"
+    fi
+else
+    echo "usage: killprocess <name> [signal]"
+fi

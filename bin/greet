@@ -1,0 +1,13 @@
+#!/bin/bash
+HOUR=$(date +%H)
+if [ $HOUR -le 6 ]; then
+    TIME="evening"
+elif [ $HOUR -le 12 ]; then
+    TIME="morning"
+elif [ $HOUR -le 18 ]; then
+    TIME="afternoon"
+else
+    TIME="evening"
+fi
+
+echo "Good $TIME, $USER!"

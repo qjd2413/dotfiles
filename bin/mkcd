@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DIR=$1
+
+if [ -n "$DIR" ]; then
+  if [ ! -d $DIR ]; then
+    mkdir $DIR
+  fi
+  cd $DIR
+else
+  echo "usage: mkcd [directory]"
+fi
+

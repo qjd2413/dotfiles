@@ -1,0 +1,36 @@
+#!/bin/bash
+IFS=$'\r\n' command eval 'HOSTS=($(cat ~/.bin/data/cs_ssh.hosts))'
+
+USER=${1:-qjd2413}
+
+#seed with date in nanaseconds
+RANDOM=$$$(date +%N)
+
+#exit status (make sure while loop executes once)
+STAT=1
+while [ $STAT != 0 ] && [ ${#HOSTS[@]} -gt 0 ] ; do
+  #reset temp array
+  TEMP=()
+  #random index
+  IND=$(expr $RANDOM % ${#HOSTS[@]})
+  #random host
+  HOST=${HOSTS[$IND]}
+  #check if host is up
+  ping -W 1 -c 1 -q $HOST > /dev/null
+  STAT=$?
+  #if host is down remove from array
+  if [ $STAT != 0 ]; then
+    echo "$HOST not available, trying again..."
+    for value in "${HOSTS[@]}"; do
+      [[ $value != $HOST ]] && TEMP+=($value)
+    done
+    HOSTS=("${TEMP[@]}")
+  fi
+done
+
+if [ ${#HOSTS[@]} -ne 0 ] ; then
+  echo "Connecting to $HOST as user $USER..."
+  ssh "$USER@$HOST"
+else
+  echo "No available hosts found."
+fi
