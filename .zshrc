@@ -11,6 +11,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
 
 alias diskspace="du -S | sort -n -r | more"
+
 alias py="python3"
 alias py2="python"
 alias py3="python3"
@@ -20,8 +21,8 @@ alias agr="sudo apt-get remove"
 alias agar="sudo apt-get autoremove"
 alias acs="apt-cache search"
 
-alias pgreg="pgrep"
-alias mkdir="mkdir -pv"
+alias pgreg="pgrep" #i spell this wrong often
+alias mkdir="mkdir -pv" #make parents if needed, and display all folders made
 
 alias rm="rm --preserve-root"
 alias chown="chown --preserve-root"
@@ -67,35 +68,11 @@ __weather_() {
         done <<< $(echo $WEATHER | sed -e 's/^[[:space:]]*//')
     fi
 }
-pr -tm <(cal) <(__weather_)
-
-#echo "Your fortune: "
-#fortune -s
-#echo
-__fortune_() {
-    LEN=0
-    FTN=($(fortune -s))
-    for i in $FTN; do
-        LEN=$(expr $LEN + ${#i})
-        if [ $LEN -ge 35 ]; then
-            echo -n "\n$i "
-            echo -n "\n$LEN " >> lengths
-            LEN=$(expr ${#i} + 1)
-        else
-            echo -n "$i "
-            echo -n "$LEN " >> lengths
-            LEN=$(expr $LEN + 1)
-        fi
-    done
-    if [ $LEN -lt 35 ]; then
-        echo
-    fi
-}
+pr -tm <(__storage_) <(__weather_)
 
 __storage_() {
     df -m ~ | tail -n 1 | awk '{ print "Storage: "$5" full | "$3" MB used | "$4" MB free | "$3+$4" MB total" }'
 }
-__storage_
-echo
 
+#nietzsche is a custom fortune file
 cowsay $(fortune nietzsche)

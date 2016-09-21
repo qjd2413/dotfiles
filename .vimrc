@@ -6,28 +6,31 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'L9'
 " colorscheme
 Plugin 'altercation/vim-colors-solarized'
 " easy file navigation
 Plugin 'scrooloose/nerdtree'
-" does some stuff
-Plugin 'L9'
 " better file search
 Plugin 'vim-scripts/FuzzyFinder'
 " status bar
 Plugin 'itchyny/lightline.vim'
 " better selection
 Plugin 'terryma/vim-expand-region'
-" syntax my dude
+" syntax
 Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
 
-" something to do with file changes
+" no idea what these fellas do
+set grepprg=grep\ -nh\ $*
+set lazyredraw
 set autoread
+set wildmenu
+set wildmode=list:longest,full
 
-" show last command (i think)
+" show last command
 set showcmd
 set showmode
 
@@ -36,49 +39,35 @@ let JSHintUpdateWriteOnly=1
 
 " syntax highlighting
 syntax enable
-" no idea what this fella does
-set grepprg=grep\ -nh\ $*
 
 " self explanatory
 set autoindent
-set lazyredraw
 
 " keep lines above/below
 set scrolloff=7
 
-" history (don't want a repeat of CSCI-251 project :( )
 set history=500
 
-" spaces > tabs
 set expandtab
 set smarttab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 
-" tab completion?
-set wildmenu
-set wildmode=list:longest,full
-
-" why doesnt backspace work normally by default
+" fix backspace
 set backspace=2
 
-" line numbers
+" line numbers (relative in normal/visual, absolute in insert)
 set number
 
-autocmd InsertEnter * :set relativenumber!
+autocmd InsertEnter * :set relativenumber! 
 autocmd InsertLeave * :set relativenumber
 autocmd BufNewFile  * :set relativenumber
 autocmd BufReadPost * :set relativenumber
 
-" i hate captialization
 set ignorecase
 set smartcase
 
-" jk exits insert mode
-inoremap jk <Esc>
-
-" something about searching
 set incsearch
 set hlsearch
 
@@ -87,10 +76,8 @@ set laststatus=2
 " full filename[flags] --- Filetype [R: row/C: col] Percent 
 set statusline=%F%m%r%h%w%=\{%Y}\ [R:%l/C:%v]\ %p%%
 
-" i think this terminal is kinda fast
 set ttyfast
 
-" i hate sounds
 set noerrorbells
 
 " colorscheme
@@ -117,6 +104,7 @@ hi ColorColumn ctermbg=1
 " show matching brackets
 set showmatch
 
+" very fast delay for maps
 set timeoutlen=150
 
 " vim expand region
@@ -135,6 +123,8 @@ map <Leader>q :q<cr>
 map <Leader>wq :wq<cr>
 " vsplit
 map <Leader>vs :vsplit 
+" jk exits insert mode
+inoremap jk <Esc>
 " delete without copying
 nnoremap sd "_d
 
