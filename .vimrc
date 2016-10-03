@@ -1,4 +1,3 @@
-
 " vundle
 set nocompatible
 filetype off
@@ -19,6 +18,13 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'terryma/vim-expand-region'
 " syntax
 Plugin 'scrooloose/syntastic'
+" autoformat
+Plugin 'Chiel92/vim-autoformat'
+
+" snippet support
+Plugin 'SirVer/ultisnips'
+" actual snippets
+Plugin 'honza/vim-snippets'
 
 call vundle#end()
 filetype plugin indent on
@@ -78,8 +84,6 @@ set statusline=%F%m%r%h%w%=\{%Y}\ [R:%l/C:%v]\ %p%%
 
 set ttyfast
 
-set noerrorbells
-
 " colorscheme
 set t_Co=256
 set background=dark
@@ -104,8 +108,8 @@ hi ColorColumn ctermbg=1
 " show matching brackets
 set showmatch
 
-" very fast delay for maps
-set timeoutlen=150
+" half second delay for maps
+set timeoutlen=500
 
 " vim expand region
 vmap v <Plug>(expand_region_expand)
@@ -121,12 +125,36 @@ map <Leader>w :w<cr>
 map <Leader>q :q<cr>
 " save & quit
 map <Leader>wq :wq<cr>
+" roll across keyboard to quit without saving
+map <Leader>qwer :q!<cr>
 " vsplit
 map <Leader>vs :vsplit 
 " jk exits insert mode
-inoremap jk <Esc>
+inoremap jk <C-[>
+" jw exit insert mode and save
+inoremap jw <C-[>:w<cr>
+inoremap jwq <C-[>:wq<cr>
+" stop highlighting
+noremap <Leader>nh :noh<cr>
 " delete without copying
 nnoremap sd "_d
+" autoindent whole file
+nnoremap <Leader>if gg<cr>=G
+" autoformat whole file
+nnoremap <Leader>af :Autoformat<cr>
+" stop using these keys
+inoremap <esc> <nop>
+" arrow keys
+inoremap <up> <nop>
+nnoremap <up> <nop>
+inoremap <down> <nop>
+nnoremap <down> <nop>
+inoremap <left> <nop>
+nnoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap <right> <nop>
+" backspace
+" inoremap <bs> <nop>
 
 " syntastic stuff
 set statusline+=%#warningmsg#
@@ -149,3 +177,8 @@ highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
+
+" snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"

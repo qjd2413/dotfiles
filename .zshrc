@@ -10,18 +10,26 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR='vim'
 
-alias diskspace="du -S | sort -n -r | more"
+alias diskspace="du -S | sort -n -r | less"
+
+alias more="less"
 
 alias py="python3"
 alias py2="python"
 alias py3="python3"
 
-alias agi="sudo apt-get install"
-alias agr="sudo apt-get remove"
-alias agar="sudo apt-get autoremove"
-alias acs="apt-cache search"
+alias inst="sudo apt-get install"
+alias rem="sudo apt-get remove"
+alias autorem="sudo apt-get autoremove"
+search() {
+    data=$(apt-cache search $1)
+    echo $data | less -F
+}
 
-alias pgreg="pgrep" #i spell this wrong often
+#fix spelling
+alias pgreg="pgrep"
+alias sl="ls"
+
 alias mkdir="mkdir -pv" #make parents if needed, and display all folders made
 
 alias rm="rm --preserve-root"
@@ -68,11 +76,20 @@ __weather_() {
         done <<< $(echo $WEATHER | sed -e 's/^[[:space:]]*//')
     fi
 }
-pr -tm <(__storage_) <(__weather_)
 
 __storage_() {
-    df -m ~ | tail -n 1 | awk '{ print "Storage: "$5" full | "$3" MB used | "$4" MB free | "$3+$4" MB total" }'
+    df -m ~ | tail -n 1 | awk '{ print "Storage: "$5" full\n"$3" MB used\n"$4" MB free\n"$3+$4" MB total" }'
 }
+pr -tm <(__storage_) <(__weather_)
 
 #nietzsche is a custom fortune file
 cowsay $(fortune nietzsche)
+
+
+__apt_get_update() {
+    sudo apt-get upgrade
+    sudo apt-get update
+    sudo apt-get dist-upgrade
+    sudo apt-get autoremove
+    sudo apt-get autoclean
+}
