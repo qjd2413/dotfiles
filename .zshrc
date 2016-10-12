@@ -14,6 +14,10 @@ alias diskspace="du -S | sort -n -r | less"
 
 alias more="less"
 
+definition() {
+    dict $1 | less -F
+}
+
 alias py="python3"
 alias py2="python"
 alias py3="python3"
@@ -86,10 +90,6 @@ pr -tm <(__storage_) <(__weather_)
 cowsay $(fortune nietzsche)
 
 
-__apt_get_update() {
-    sudo apt-get upgrade
-    sudo apt-get update
-    sudo apt-get dist-upgrade
-    sudo apt-get autoremove
-    sudo apt-get autoclean
+update() {
+    sudo apt-get upgrade && sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean
 }
