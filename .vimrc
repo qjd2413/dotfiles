@@ -8,8 +8,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
 " colorscheme
 Plugin 'altercation/vim-colors-solarized'
-" easy file navigation
-Plugin 'scrooloose/nerdtree'
 " better file search
 Plugin 'vim-scripts/FuzzyFinder'
 " status bar
@@ -25,6 +23,9 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'SirVer/ultisnips'
 " actual snippets
 Plugin 'honza/vim-snippets'
+
+" easy file navigation
+Plugin 'scrooloose/nerdtree'
 
 call vundle#end()
 filetype plugin indent on
@@ -142,9 +143,7 @@ nnoremap sd "_d
 nnoremap <Leader>if gg<cr>=G
 " autoformat whole file
 nnoremap <Leader>af :Autoformat<cr>
-" stop using these keys
-inoremap <esc> <nop>
-" arrow keys
+" stop using arrow keys
 inoremap <up> <nop>
 nnoremap <up> <nop>
 inoremap <down> <nop>
@@ -153,8 +152,6 @@ inoremap <left> <nop>
 nnoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap <right> <nop>
-" backspace
-" inoremap <bs> <nop>
 
 " syntastic stuff
 set statusline+=%#warningmsg#
