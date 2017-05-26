@@ -4,7 +4,7 @@ ZSH_THEME="cordial"
 
 export UPDATE_ZSH_DAYS=7
 
-plugins=(git npm sudo)
+plugins=(git npm sudo man)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -22,10 +22,11 @@ alias py="python3"
 alias py2="python"
 alias py3="python3"
 
-alias inst="sudo apt-get install"
-alias rem="sudo apt-get remove"
-alias autorem="sudo apt-get autoremove"
-search() {
+alias sagi="sudo apt-get -y install"
+sagr() {
+    sudo apt-get -y remove $1 && sudo apt-get -y autoremove
+}
+acs() {
     data=$(apt-cache search $1)
     echo $data | less
 }
@@ -64,18 +65,19 @@ __weather_() {
     wget -q --spider http://google.com
     if [ $? -eq 0 ]; then
         LOC="Rochester, NY"
-        WEATHER=$(ansiweather -a false -d true -l "Rochester, NY")
+        WEATHER=$(ansiweather -a false -d true -l $LOC)
         WEATHER=$(echo $WEATHER | tr "-" "\n")
-        FL=1
+        count=0
         echo $LOC
         while IFS='\n' read -r ARR; do
             for i in "${ARR[@]}"; do
-                if [ $FL -eq 1 ]; then
-                    FL=0
-                    echo "Temperature => "$(echo $i | awk '{ print $6$7" "$8 }')
-                else
+                # change the output of temperature and skip pressure
+                if [ $count -eq 0 ]; then
+                    echo "Temperature => "$(echo $i | awk '{ print $(NF-2)$(NF-1)" "$NF }')
+                elif [ $count -ne 3 ]; then
                     echo $i
                 fi
+                count=$(expr $count + 1)
             done
         done <<< $(echo $WEATHER | sed -e 's/^[[:space:]]*//')
     fi
@@ -91,9 +93,9 @@ cowsay $(fortune nietzsche)
 
 
 update() {
-    sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get dist-upgrade 
-    sudo apt-get autoremove
-    sudo apt-get autoclean
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+    sudo apt-get -y dist-upgrade 
+    sudo apt-get -y autoremove
+    sudo apt-get -y autoclean
 }

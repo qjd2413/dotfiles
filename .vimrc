@@ -18,6 +18,10 @@ Plugin 'terryma/vim-expand-region'
 Plugin 'scrooloose/syntastic'
 " autoformat
 Plugin 'Chiel92/vim-autoformat'
+" comments
+Plugin 'scrooloose/nerdcommenter'
+" hardmode
+Plugin 'takac/vim-hardtime'
 
 " snippet support
 Plugin 'SirVer/ultisnips'
@@ -161,7 +165,7 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
 let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 
@@ -179,3 +183,10 @@ highlight link SyntasticStyleWarningSign SignColumn
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" nerd commenter
+let g:NERDSpaceDelims = 1
+
+let g:hardtime_default_on = 0
+let g:hardtime_timeout = 500
+let g:hardtime_showmsg = 1
