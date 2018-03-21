@@ -130,15 +130,19 @@ map <Leader>w :w<cr>
 map <Leader>q :q<cr>
 " save & quit
 map <Leader>wq :wq<cr>
-" roll across keyboard to quit without saving
-map <Leader>qwer :q!<cr>
+
+" roll across keyboard to quit without saving [removed bc of dvorak]
+" map <Leader>qwer :q!<cr> 
+
 " vsplit
-map <Leader>vs :vsplit 
-" jk exits insert mode
-inoremap jk <C-[>
+map <Leader>vs :vsplit
+
+" jk exits insert mode [removed bc of dvorak]
+" inoremap jk <C-[>
 " jw exit insert mode and save
-inoremap jw <C-[>:w<cr>
-inoremap jwq <C-[>:wq<cr>
+"inoremap jw <C-[>:w<cr>
+" inoremap jwq <C-[>:wq<cr>
+
 " stop highlighting
 noremap <Leader>nh :noh<cr>
 " delete without copying
@@ -147,15 +151,6 @@ nnoremap sd "_d
 nnoremap <Leader>if gg<cr>=G
 " autoformat whole file
 nnoremap <Leader>af :Autoformat<cr>
-" stop using arrow keys
-inoremap <up> <nop>
-nnoremap <up> <nop>
-inoremap <down> <nop>
-nnoremap <down> <nop>
-inoremap <left> <nop>
-nnoremap <left> <nop>
-inoremap <right> <nop>
-nnoremap <right> <nop>
 
 " syntastic stuff
 set statusline+=%#warningmsg#
@@ -190,3 +185,15 @@ let g:NERDSpaceDelims = 1
 let g:hardtime_default_on = 0
 let g:hardtime_timeout = 500
 let g:hardtime_showmsg = 1
+
+" experimental feature, trying to make dvorak usable by remaping the movement keys. 
+" if you're looking at this on github, you probably don't want this.
+
+nnoremap t j
+nnoreamp n k
+nnoremap s l
+nnoremap j t
+nnoremap k s
+nnoremap l n
+inoremap tn <C-[>
+
