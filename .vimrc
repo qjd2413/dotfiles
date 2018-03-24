@@ -22,6 +22,10 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'scrooloose/nerdcommenter'
 " hardmode
 Plugin 'takac/vim-hardtime'
+" JS highlighting
+Plugin 'pangloss/vim-javascript'
+" Scala stuff
+Plugin 'derekwyatt/vim-scala'
 
 " snippet support
 Plugin 'SirVer/ultisnips'
@@ -190,7 +194,7 @@ let g:hardtime_showmsg = 1
 " if you're looking at this on github, you probably don't want this.
 
 nnoremap t j
-nnoreamp n k
+nnoremap n k
 nnoremap s l
 nnoremap j t
 nnoremap k s

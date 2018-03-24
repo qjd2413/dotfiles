@@ -10,6 +10,9 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR='vim'
 
+# edit this to get weather at startup (because I never go outside)
+LOCATION="San Jose, CA"
+
 alias diskspace="du -S | sort -n -r | less"
 
 alias more="less"
@@ -45,15 +48,20 @@ alias chgrp="chgrp --preserve-root"
 alias mips="java -jar ~/.bin/Mars4_5.jar nc"
 alias mipsUI="java -jar ~/.bin/Mars4_5.jar"
 
+alias valgrind="valgrind --tool=memcheck --leak-check=full"
+
 # add "homemade" scripts
 export PATH=$HOME/.bin:$PATH
 
 alias up='. up' #if i don't source it i don't move
 alias mkcd='. mkcd'
 
+alias v='vim'
+
 #add node
 export PATH=~/.npm-global/bin:$PATH
 PATH=~/.cabal/bin:$PATH
+PATH=~/.local/bin:$PATH
 
 export NVM_DIR="/home/quinn/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -61,14 +69,22 @@ export NVM_DIR="/home/quinn/.nvm"
 greet
 echo
 
+CURRENT_LOC="Hello world!"
+test_func() {
+    echo $CURRENT_LOC
+    TMP=$CURRENT_LOC
+    echo $TMP
+}
+
 __weather_() {
     wget -q --spider http://google.com
     if [ $? -eq 0 ]; then
-        LOC="Rochester, NY"
-        WEATHER=$(ansiweather -a false -d true -l $LOC)
+        WEATHER=$(ansiweather -a false -d true -l $LOCATION)
+        echo $?
+        echo $WEATHER
         WEATHER=$(echo $WEATHER | tr "-" "\n")
         count=0
-        echo $LOC
+        echo $LOCATION
         while IFS='\n' read -r ARR; do
             for i in "${ARR[@]}"; do
                 # change the output of temperature and skip pressure
@@ -99,3 +115,4 @@ update() {
     sudo apt-get -y autoremove
     sudo apt-get -y autoclean
 }
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
